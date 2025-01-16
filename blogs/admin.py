@@ -11,3 +11,5 @@ class PostCategoryAdmin(admin.ModelAdmin):
     
 admin.site.register(models.PostModel,PostAdmin)
 admin.site.register(models.PostCategoryModel,PostCategoryAdmin)
+admin.site.register(models.Post_Commernts)
+
