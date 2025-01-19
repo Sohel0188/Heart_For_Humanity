@@ -6,3 +6,12 @@ from . import models
 class BlogViewSet(viewsets.ModelViewSet):
     queryset = models.PostModel.objects.all()
     serializer_class = serializers.BlogSerializers
+    
+class BlogCategoryViewSet(viewsets.ModelViewSet):
+    queryset = models.PostCategoryModel.objects.all()
+    serializer_class = serializers.BlogCategorySerializers
+    
+class BlogCommentViewSet(viewsets.ModelViewSet):
+    queryset = models.Post_Commernts.objects.all()
+    serializer_class = serializers.BlogCommentsSerializers
+    

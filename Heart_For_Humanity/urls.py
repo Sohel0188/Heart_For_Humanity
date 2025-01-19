@@ -9,6 +9,8 @@ urlpatterns = [
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
     path('blog/', include('blogs.urls')),
+    path('events/', include('events.urls')),
+    path('campain/', include('campain.urls')),
 
 ]
 
