@@ -11,3 +11,7 @@ class CampainCategoryViewSet(viewsets.ModelViewSet):
 class CampainViewSet(viewsets.ModelViewSet):
     queryset = models.Campain.objects.all()
     serializer_class = serializers.CampainSerializers
+    
+class DonetionViewSet(viewsets.ModelViewSet):
+    queryset = models.Donate.objects.all()
+    serializer_class = serializers.DonetionSerializers

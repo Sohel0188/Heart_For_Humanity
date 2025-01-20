@@ -5,6 +5,7 @@ from . import views
 router = DefaultRouter()
 router.register('all_capain', views.CampainViewSet)
 router.register('category', views.CampainCategoryViewSet)
+router.register('donetion', views.DonetionViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [

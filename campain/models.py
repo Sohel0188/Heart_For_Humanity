@@ -20,5 +20,18 @@ class Campain (models.Model):
     goal_price = models.FloatField()
     raised_price = models.FloatField()
     campain_day = models.IntegerField()
-    donar = models.ForeignKey(UserAccount,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.campain_title} {self.category} {self.campain_day} {self.goal_price} {self.raised_price}"
+    
+class Donate(models.Model):
+    user = models.ForeignKey(UserAccount,default=0, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    amount = models.FloatField()
+    
+    def __str__(self):
+        return f"{self.user.author.username} {self.name} {self.email} {self.phone} {self.amount}"
+    
          

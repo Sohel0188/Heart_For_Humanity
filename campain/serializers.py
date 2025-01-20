@@ -10,3 +10,8 @@ class CampainSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Campain
         fields = '__all__'
+class DonetionSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Donate
+        fields = '__all__'
+        

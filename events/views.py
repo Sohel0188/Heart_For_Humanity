@@ -6,3 +6,8 @@ from . import models
 class EventViewSet(viewsets.ModelViewSet):
     queryset = models.Event.objects.all()
     serializer_class = serializers.EventSerializers
+    
+class EventBookingViewSet(viewsets.ModelViewSet):
+    queryset = models.EventBooking.objects.all()
+    serializer_class = serializers.EventBookingSerializers
+
