@@ -17,12 +17,12 @@ class CampainViewSet(viewsets.ModelViewSet):
     lookup_field = 'campain_slug'
     def get_queryset(self):
         queryset = super().get_queryset()
-        slug = self.request.query_params.get('category')  # Updated parameter name
-        if slug:
-            queryset = queryset.filter(category=slug)
+        category_id = self.request.query_params.get('category')
+        
+        if category_id:
+            queryset = queryset.filter(category=category_id)
         return queryset
 
-        
 class DonetionViewSet(viewsets.ModelViewSet):
     queryset = models.Donate.objects.all()
     serializer_class = serializers.DonetionSerializers

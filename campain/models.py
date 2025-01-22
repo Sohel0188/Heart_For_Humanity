@@ -23,15 +23,16 @@ class Campain (models.Model):
     
     def __str__(self):
         return f"{self.campain_title} {self.category} {self.campain_day} {self.goal_price} {self.raised_price}"
-    
+
+
 class Donate(models.Model):
-    user = models.ForeignKey(UserAccount,default=0, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount,default=0,null=True, blank=True, on_delete=models.CASCADE)
+    campaign = models.ForeignKey(Campain,default=None,on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
     amount = models.FloatField()
     
     def __str__(self):
-        return f"{self.user.author.username} {self.name} {self.email} {self.phone} {self.amount}"
-    
-         
+        user_info = self.user.author.username if self.user else "Guest User"
+        return f"{user_info} {self.name} {self.email} {self.phone} {self.amount}"
