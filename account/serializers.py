@@ -11,10 +11,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     
     confirm_password = serializers.CharField(required = True)
     user_type = serializers.CharField(default="donar")
+    # profile_image = serializers.ImageField()
     
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email','password', 'confirm_password','user_type']
+        fields = ['username', 'first_name', 'last_name', 'email','password', 'confirm_password','user_type',]
     
     def save(self):
         username = self.validated_data['username']
@@ -40,3 +41,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user_type = user_type,
         )
         return account
+    
+class UserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required = True)
+    password = serializers.CharField(required = True)
