@@ -11,6 +11,8 @@ urlpatterns = [
     path('blog/', include('blogs.urls')),
     path('events/', include('events.urls')),
     path('campain/', include('campain.urls')),
+    path('account/', include('account.urls')),
+    
 
 ]
 
