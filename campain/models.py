@@ -10,6 +10,7 @@ class Campain_Category(models.Model):
     def __str__(self):
         return self.title
     
+
 class Campain (models.Model):
     campain_title = models.CharField(max_length=250,default="-")
     campain_slug = models.SlugField(max_length=255)
@@ -23,7 +24,6 @@ class Campain (models.Model):
     
     def __str__(self):
         return f"{self.campain_title} {self.category} {self.campain_day} {self.goal_price} {self.raised_price}"
-
 
 class Donate(models.Model):
     user = models.ForeignKey(UserAccount,default=0,null=True, blank=True, on_delete=models.CASCADE)

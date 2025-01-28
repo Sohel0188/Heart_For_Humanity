@@ -94,3 +94,8 @@ class UserLogoutView(APIView):
         request.user.auth_token.delete()
         logout(request)
         return redirect('login')
+
+
+class UserprofileViewser(viewsets.ModelViewSet):
+    queryset = models.UserAccount.objects.all()
+    serializer_class = serializers.UserViewSerializer

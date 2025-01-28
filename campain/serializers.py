@@ -7,9 +7,26 @@ class CampainCategorySerializers(serializers.ModelSerializer):
         fields = '__all__' 
 
 class CampainSerializers(serializers.ModelSerializer):
+    category_name = serializers.SerializerMethodField()
+
     class Meta:
         model = models.Campain
-        fields = '__all__'
+        fields = [
+            'id',
+            'campain_title',
+            'campain_slug',
+            'image',
+            'short_details',
+            'details',
+            'goal_price',
+            'raised_price',
+            'campain_day',
+            'category',  # Keeps the ID
+            'category_name',  # Adds the name
+        ]
+
+    def get_category_name(self, obj):
+        return obj.category.title
     
 class DonetionSerializers(serializers.ModelSerializer):
     class Meta:

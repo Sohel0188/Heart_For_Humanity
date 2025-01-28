@@ -12,7 +12,7 @@ class UserAccount(models.Model):
     address = models.CharField(max_length=255)
     profile_image = models.ImageField(upload_to='./media/profile/',null=True, blank=True)
     user_type = models.CharField(max_length=10, choices=USER_TYPE, default="donar")
-    # pyis_active = models.BooleanField(default=False)
+    total_donet_amount = models.FloatField(default=0)
     
     def __str__(self):
         return f"{self.author.username}"

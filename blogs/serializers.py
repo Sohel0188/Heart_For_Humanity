@@ -7,9 +7,21 @@ class BlogCategorySerializers(serializers.ModelSerializer):
         fields = '__all__'
         
 class BlogSerializers(serializers.ModelSerializer):
+    category_name = serializers.SerializerMethodField()
     class Meta:
         model = models.PostModel
-        fields = '__all__'
+        fields = [
+            'id',
+            'post_title',
+            'post_slug',
+            'post_description',
+            'post_image',
+            'created_date',
+            'post_category',
+            'category_name',
+        ]
+    def get_category_name(self, obj):
+        return obj.post_category.category_name
 
 class BlogCommentsSerializers(serializers.ModelSerializer):
     class Meta:
