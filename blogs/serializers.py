@@ -23,7 +23,25 @@ class BlogSerializers(serializers.ModelSerializer):
     def get_category_name(self, obj):
         return obj.post_category.category_name
 
+# class BlogCommentsSerializers(serializers.ModelSerializer):
+#     class Meta:
+#         model = models.Post_Commernts
+#         fields = '__all__'
+
 class BlogCommentsSerializers(serializers.ModelSerializer):
+    commenter_name = serializers.SerializerMethodField()
+    commenter_image = serializers.SerializerMethodField()
     class Meta:
         model = models.Post_Commernts
-        fields = '__all__'
+        fields = ['id', 'comment','commenter', 'commenter_name','commenter_image','post']
+
+    def get_commenter_name(self, obj):
+        return obj.commenter.author.username
+        
+    def get_commenter_image(self, obj):
+        request = self.context.get('request') 
+        if obj.commenter.profile_image: 
+            return request.build_absolute_uri(obj.commenter.profile_image.url)
+        return None
+
+

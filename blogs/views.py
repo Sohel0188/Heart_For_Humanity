@@ -14,4 +14,11 @@ class BlogCategoryViewSet(viewsets.ModelViewSet):
 class BlogCommentViewSet(viewsets.ModelViewSet):
     queryset = models.Post_Commernts.objects.all()
     serializer_class = serializers.BlogCommentsSerializers
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        post_id = self.request.query_params.get('post')
+        
+        if post_id:
+            queryset = queryset.filter(post=post_id)
+        return queryset
     
