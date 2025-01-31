@@ -1,13 +1,30 @@
+// {
+//     "builds": [{
+//       "src": "Heart_For_Humanity/wsgi.py",
+//       "use": "@vercel/python",
+//       "config": { "maxLambdaSize": "15mb", "runtime": "python3.12.2" }
+//     }],
+//     "routes": [
+//       {
+//         "src": "/(.*)",
+//         "dest": "Heart_For_Humanity/wsgi.py"
+//       }
+//     ]
+// }
+
+
 {
-    "builds": [{
-      "src": "Heart_For_Humanity/wsgi.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.3" }
-    }],
+    "version": 2,
+    "builds": [
+        {
+            "src": "Heart_For_Humanity/wsgi.py",
+            "use": "@vercel/python"
+        }
+    ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "Heart_For_Humanity/wsgi.py"
-      }
+        {
+            "src": "/(.*)",
+            "dest": "Heart_For_Humanity/wsgi.py"
+        }
     ]
 }
