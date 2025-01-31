@@ -12,6 +12,7 @@ class CampainCategoryViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
     
 class CampainViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.CampainSerializers
     queryset = models.Campain.objects.all()
     lookup_field = 'campain_slug'
     def get_queryset(self):
