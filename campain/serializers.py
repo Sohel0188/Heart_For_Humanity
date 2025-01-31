@@ -8,7 +8,6 @@ class CampainCategorySerializers(serializers.ModelSerializer):
 
 class CampainSerializers(serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()
-
     class Meta:
         model = models.Campain
         fields = [

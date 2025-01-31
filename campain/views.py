@@ -13,9 +13,9 @@ class CampainCategoryViewSet(viewsets.ModelViewSet):
     
 class CampainViewSet(viewsets.ModelViewSet):
     queryset = models.Campain.objects.all()
-    serializer_class = serializers.CampainSerializers
     lookup_field = 'campain_slug'
     def get_queryset(self):
+
         queryset = super().get_queryset()
         category_id = self.request.query_params.get('category')
         
@@ -26,3 +26,16 @@ class CampainViewSet(viewsets.ModelViewSet):
 class DonetionViewSet(viewsets.ModelViewSet):
     queryset = models.Donate.objects.all()
     serializer_class = serializers.DonetionSerializers
+    def perform_create(self, serializer):
+        donation = serializer.save()
+        donar = donation.user
+        campaign = donation.campaign
+
+        print(donation.amount)
+        if campaign:
+            campaign.raised_price += donation.amount
+            donar.total_donet_amount+=donation.amount
+            print(donar)
+            print(campaign)
+            donar.save()
+            campaign.save()
