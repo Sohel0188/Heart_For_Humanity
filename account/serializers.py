@@ -46,7 +46,26 @@ class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(required = True)
     password = serializers.CharField(required = True)
 
-class UserViewSerializer(serializers.ModelSerializer):
+# class UserViewSerializer(serializers.ModelSerializer):   
+#     class Meta:
+#         model = models.UserAccount
+#         fields = '__all__'
+# class UserViewSerializer(serializers.ModelSerializer):   
+
+#     authorname = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = models.UserAccount
+#         fields = ['username', 'phone', 'address', 'profile_image', 'user_type', 'total_donet_amount', 'author', 'authorname']
+#     def get_authorname(self, obj):
+#         return obj.author.username 
+class UserViewSerializer(serializers.ModelSerializer):   
+    username = serializers.CharField(source='author.username', read_only=True) 
+    # authorname = serializers.SerializerMethodField()
+
     class Meta:
-        model = models.UserAccount
-        fields = '__all__'
+        model = models.UserAccount  # Correctly reference the UserAccount model
+        fields = ['username', 'phone', 'address', 'profile_image', 'user_type', 'total_donet_amount', 'author']
+
+    def get_authorname(self, obj):
+        return obj.author.username

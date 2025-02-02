@@ -15,3 +15,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Heart_For_Humanity.settings')
 
 application = get_wsgi_application()
 app = application
+ 
