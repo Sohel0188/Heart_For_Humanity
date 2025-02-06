@@ -40,3 +40,11 @@ class DonetionViewSet(viewsets.ModelViewSet):
             print(campaign)
             donar.save()
             campaign.save()
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_id = self.request.query_params.get('user')
+
+        if user_id :
+            queryset = queryset.filter(user=user_id)
+        return queryset
