@@ -28,7 +28,12 @@ class CampainSerializers(serializers.ModelSerializer):
         return obj.category.title
     
 class DonetionSerializers(serializers.ModelSerializer):
+    campaign_title = serializers.SerializerMethodField()
+
     class Meta:
         model = models.Donate
         fields = '__all__'
+        extra_fields = ['campain_name']
+    def get_campaign_title(self, obj):
+        return obj.campaign.campain_title if obj.campaign else None 
         
