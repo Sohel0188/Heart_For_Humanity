@@ -27,7 +27,7 @@ class UserRegistrationApiView(APIView):
             print("token ", token)
             uid = urlsafe_base64_encode(force_bytes(author.pk))
             print("uid ", uid)
-            confirm_link = f"http://127.0.0.1:8000/account/active/{uid}/{token}"
+            confirm_link = f"https://heart-for-humanity-frontend.vercel.app/account/active/{uid}/{token}"
             email_subject = "Confirm Your Email"
             email_body = render_to_string('email.html', {'confirm_link' : confirm_link})
             
@@ -50,9 +50,9 @@ def activate(request, uid64, token):
     if author is not None and default_token_generator.check_token(author, token):
         author.is_active = True
         author.save()
-        return redirect('http://127.0.0.1:5500/login.html')
+        return redirect('https://heart-for-humanity-frontend.vercel.app/login.html')
     else:
-        return redirect('http://127.0.0.1:5500/register.html')
+        return redirect('https://heart-for-humanity-frontend.vercel.app/register.html')
     
 # def activate(request, uid64, token):
 #     try:
@@ -87,7 +87,7 @@ class UserLoginApiView(APIView):
                 print(_) 
                 login(request, user)
 
-                return Response({'token' : token.key, 'user_id' : userAccount.id,'redirect_url': 'http://127.0.0.1:5500/'})
+                return Response({'token' : token.key, 'user_id' : userAccount.id,'redirect_url': 'https://heart-for-humanity-frontend.vercel.app/'})
             else:
                 return Response({'error' : "Invalid Credential"})
         return Response(serializer.errors)
@@ -96,7 +96,7 @@ class UserLogoutView(APIView):
     def get(self, request):
         request.user.auth_token.delete()
         logout(request)
-        return redirect('login')
+        return redirect('https://heart-for-humanity-frontend.vercel.app/login.html')
 
 
 class UserprofileViewser(viewsets.ModelViewSet):
