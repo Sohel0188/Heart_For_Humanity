@@ -59,17 +59,7 @@ def unique_transaction_id_generator(size=10, chars=string.ascii_uppercase + stri
 @api_view(['GET', 'POST'])
 def MakePayment(request):
 
-    donation_id  = request.query_params.get('donetion_id')
-    # print(request)
-    print(donation_id)
-    # donation = models.Donate.objects.get(id=donation_id)
-    # data = models.Donate.objects.all()
-    # print(data)
-    # payamount = donation.amount
-    # print(payamount)
-    # donor_name = donation.user.name 
-    # donor_email = donation.user.email
-    # donor_phone = donation.user.phone
+   
 
     settings = { 'store_id': 'heart67ae458c8db2e', 'store_pass': 'heart67ae458c8db2e@ssl', 'issandbox': True }
     sslcz = SSLCOMMERZ(settings)
