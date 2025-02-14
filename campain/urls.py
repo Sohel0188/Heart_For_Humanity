@@ -10,5 +10,5 @@ router.register('donetion', views.DonetionViewSet)
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('', include(router.urls)),
-    path('payment/', views.MakePayment),
+    # path('payment/', views.MakePayment),
 ]
