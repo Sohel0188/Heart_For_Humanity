@@ -8,6 +8,9 @@ from . import models
 import random
 import string
 from rest_framework.decorators import api_view, permission_classes
+from django.contrib.auth.models import User
+from account.models import UserAccount
+from rest_framework.response import Response
 
 # Create your views here.
 class CampainCategoryViewSet(viewsets.ModelViewSet):
@@ -45,57 +48,67 @@ class DonetionViewSet(viewsets.ModelViewSet):
             donar.save()
             campaign.save()
 
+
     def get_queryset(self):
         queryset = super().get_queryset()
         user_id = self.request.query_params.get('user')
+        # print(request.user)
 
         if user_id :
             queryset = queryset.filter(user=user_id)
+
         return queryset
+
 
 def unique_transaction_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 @api_view(['GET', 'POST'])
 def MakePayment(request):
+    donation_id = request.query_params.get('donation_id')
+    print(donation_id)
 
-    # donation_id  = request.query_params.get('donetion_id')
-    # # print(request)
-    # print(donation_id)
-    # # donation = models.Donate.objects.get(id=donation_id)
-    # # data = models.Donate.objects.all()
-    # # print(data)
-    # # payamount = donation.amount
-    # # print(payamount)
-    # # donor_name = donation.user.name 
-    # # donor_email = donation.user.email
-    # # donor_phone = donation.user.phone
+    if not donation_id:
+        return Response({'error': 'Donation ID is required'}, status=400)
 
-    settings = { 'store_id': 'heart67ae458c8db2e', 'store_pass': 'heart67ae458c8db2e@ssl', 'issandbox': True }
+    try:
+        donation = models.Donate.objects.get(id=donation_id)
+    except models.Donate.DoesNotExist:
+        return Response({'error': 'Donation not found'}, status=404)
+
+    amount = donation.amount
+    print(request.user)
+
+    settings = {
+        'store_id': 'heart67ae458c8db2e',
+        'store_pass': 'heart67ae458c8db2e@ssl',
+        'issandbox': True
+    }
     sslcz = SSLCOMMERZ(settings)
-    post_body = {}
-    post_body['total_amount'] = 100
-    post_body['currency'] = "BDT"
-    post_body['tran_id'] = unique_transaction_id_generator()
-    post_body['success_url'] = "https://heart-for-humanity-frontend.vercel.app/Profile/donationHistory.html"
-    post_body['fail_url'] = "your fail url"
-    post_body['cancel_url'] = "your cancel url"
-    post_body['emi_option'] = 0
-    post_body['cus_name'] = "test"
-    post_body['cus_email'] = "test@test.com"
-    post_body['cus_phone'] = "01700000000"
-    post_body['cus_add1'] = "customer address"
-    post_body['cus_city'] = "Dhaka"
-    post_body['cus_country'] = "Bangladesh"
-    post_body['shipping_method'] = "NO"
-    post_body['multi_card_name'] = ""
-    post_body['num_of_item'] = 1
-    post_body['product_name'] = "Test"
-    post_body['product_category'] = "Test Category"
-    post_body['product_profile'] = "general"
 
-    response = sslcz.createSession(post_body) # API response
+    post_body = {
+        'total_amount': amount,
+        'currency': "BDT",
+        'tran_id': unique_transaction_id_generator(),
+        'success_url': "https://heart-for-humanity-frontend.vercel.app/Profile/donationHistory.html",
+        'fail_url': "your fail url",
+        'cancel_url': "your cancel url",
+        'emi_option': 0,
+        'cus_name': donation.name,
+        'cus_email': donation.email,
+        'cus_phone': donation.phone,
+        'cus_add1': "customer address",
+        'cus_city': "Dhaka",
+        'cus_country': "Bangladesh",
+        'shipping_method': "NO",
+        'multi_card_name': "",
+        'num_of_item': 1,
+        'product_name': "Donation",
+        'product_category': "Charity",
+        'product_profile': "general"
+    }
+
+    response = sslcz.createSession(post_body)
     print(response)
 
     return redirect(response['GatewayPageURL'])
-    # Need to redirect user to response['GatewayPageURL']

@@ -33,6 +33,7 @@ class DonetionSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Donate
         fields = '__all__'
+        #fields = ['id', 'name', 'email', 'phone', 'amount', 'user', 'campaign']
         extra_fields = ['campain_name']
     def get_campaign_title(self, obj):
         return obj.campaign.campain_title if obj.campaign else None 
