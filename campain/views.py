@@ -90,7 +90,7 @@ def MakePayment(request):
         'total_amount': amount,
         'currency': "BDT",
         'tran_id': unique_transaction_id_generator(),
-        'success_url': "https://heart-for-humanity-frontend.vercel.app/Profile/donationHistory.html",
+        'success_url': "https://heart-for-humanity-frontend.vercel.app/profile/donationHistory.html",
         'fail_url': "your fail url",
         'cancel_url': "your cancel url",
         'emi_option': 0,
